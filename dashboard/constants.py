@@ -1,0 +1,92 @@
+MODULES = {
+    "remote-desktop": {
+        "title": "Remote desktop",
+        "subtitle": "Screen capture and input relay",
+        "gradient": "bg-gradient-to-r from-emerald-800 to-emerald-500",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-emerald-400",
+    },
+    "shell": {
+        "title": "Remote shell",
+        "subtitle": "Interactive command-line sessions",
+        "gradient": "bg-gradient-to-r from-green-800 to-emerald-400",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-emerald-400",
+    },
+    "files": {
+        "title": "File browser",
+        "subtitle": "List, upload, and download paths on endpoints",
+        "gradient": "bg-gradient-to-r from-emerald-900 to-lime-600",
+        "glow": "shadow-lime-500/10",
+        "text": "text-emerald-300",
+    },
+    "registry": {
+        "title": "Registry editor",
+        "subtitle": "Read and write registry keys (audited)",
+        "gradient": "bg-gradient-to-r from-emerald-950 to-emerald-600",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-emerald-400",
+    },
+    "scripts": {
+        "title": "Scripts & commands",
+        "subtitle": "Batch, PowerShell, Python, Nu, Deno",
+        "gradient": "bg-gradient-to-r from-lime-900 to-emerald-500",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-lime-300",
+    },
+    "events": {
+        "title": "Event logs",
+        "subtitle": "Windows event log query and stream",
+        "gradient": "bg-gradient-to-r from-emerald-700 to-green-500",
+        "glow": "shadow-green-500/15",
+        "text": "text-emerald-400",
+    },
+    "services": {
+        "title": "Services",
+        "subtitle": "Service control and configuration",
+        "gradient": "bg-gradient-to-r from-teal-900 to-emerald-500",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-emerald-400",
+    },
+    "patches": {
+        "title": "Patch management",
+        "subtitle": "Update state and reboot scheduling",
+        "gradient": "bg-gradient-to-r from-green-900 to-lime-500",
+        "glow": "shadow-lime-500/10",
+        "text": "text-emerald-300",
+    },
+    "monitoring": {
+        "title": "Monitoring & alerts",
+        "subtitle": "Thresholds, checks, notifications",
+        "gradient": "bg-gradient-to-r from-emerald-900 to-green-400",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-emerald-400",
+    },
+    "tasks": {
+        "title": "Scheduled tasks",
+        "subtitle": "Cron-style script runs on endpoints",
+        "gradient": "bg-gradient-to-r from-lime-950 to-emerald-400",
+        "glow": "shadow-emerald-500/15",
+        "text": "text-lime-300",
+    },
+    "chocolatey": {
+        "title": "Chocolatey",
+        "subtitle": "Package install and upgrade",
+        "gradient": "bg-gradient-to-r from-emerald-950 to-green-500",
+        "glow": "shadow-green-500/15",
+        "text": "text-emerald-400",
+    },
+    "inventory": {
+        "title": "Inventory",
+        "subtitle": "Hardware and installed software",
+        "gradient": "bg-gradient-to-r from-zinc-800 to-emerald-700",
+        "glow": "shadow-emerald-500/10",
+        "text": "text-emerald-500/90",
+    },
+}
+
+NAV_SECTIONS = [
+    {"label": "Control", "keys": ["remote-desktop", "shell", "files", "registry", "scripts"]},
+    {"label": "Windows", "keys": ["events", "services", "patches", "chocolatey"]},
+    {"label": "Automation", "keys": ["monitoring", "tasks", "inventory"]},
+]

@@ -1,0 +1,89 @@
+{% extends "dashboard/base.html" %}
+{% load dict_extras %}
+
+{% block title %}overview{% endblock %}
+
+{% block content %}
+<header class="border-b border-emerald-950/60 bg-black/20 px-8 py-6">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-emerald-700">// fleet_status</p>
+      <h1 class="mt-2 font-mono text-xl font-semibold tracking-tight text-emerald-300 sm:text-2xl">
+        <span class="text-emerald-600">$</span> fleet overview
+      </h1>
+      <p class="mt-2 max-w-xl text-[13px] leading-relaxed text-emerald-700">Fleet metrics from the API; modules map to backend routes.</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="inline-flex items-center gap-2 border border-emerald-900/80 bg-emerald-950/30 px-3 py-1.5 font-mono text-[11px] text-emerald-500">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+        listener: up
+      </span>
+      <button type="button" class="border border-emerald-800/80 bg-emerald-950/20 px-3 py-1.5 font-mono text-[12px] text-emerald-500 transition hover:border-emerald-600 hover:text-emerald-400">
+        add_agent
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="px-8 py-8">
+  <section class="mb-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <article class="border border-emerald-950/80 bg-black/30 p-4 shadow-term">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-emerald-800">endpoints</p>
+      <p class="mt-2 font-mono text-2xl font-medium tabular-nums text-emerald-300">0</p>
+      <p class="mt-1 font-mono text-[11px] text-emerald-800">conn / total</p>
+    </article>
+    <article class="border border-emerald-950/80 bg-black/30 p-4 shadow-term">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-emerald-800">alerts</p>
+      <p class="mt-2 font-mono text-2xl font-medium tabular-nums text-emerald-300">0</p>
+      <p class="mt-1 font-mono text-[11px] text-emerald-800">open</p>
+    </article>
+    <article class="border border-emerald-950/80 bg-black/30 p-4 shadow-term">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-emerald-800">jobs_today</p>
+      <p class="mt-2 font-mono text-2xl font-medium tabular-nums text-emerald-300">0</p>
+      <p class="mt-1 font-mono text-[11px] text-emerald-800">scripts &amp; patches</p>
+    </article>
+    <article class="border border-emerald-950/80 bg-black/30 p-4 shadow-term">
+      <p class="font-mono text-[10px] uppercase tracking-wider text-emerald-800">avg_cpu</p>
+      <p class="mt-2 font-mono text-2xl font-medium tabular-nums text-emerald-300">—</p>
+      <p class="mt-1 font-mono text-[11px] text-emerald-800">fleet</p>
+    </article>
+  </section>
+
+  <section class="mb-10 border border-emerald-950/80 bg-black/25 p-5 shadow-term">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 class="font-mono text-sm font-semibold text-emerald-300">live_activity</h2>
+        <p class="mt-1 font-mono text-[11px] text-emerald-800">heartbeats · audit · ws</p>
+      </div>
+      <span class="border border-emerald-900/60 bg-black/40 px-2 py-1 font-mono text-[11px] text-emerald-600">ws: idle</span>
+    </div>
+    <div class="mt-4 border border-dashed border-emerald-950/80 bg-black/40 px-4 py-10 text-center">
+      <p class="font-mono text-[12px] text-emerald-800">no events</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-3 font-mono text-sm font-semibold text-emerald-400">modules</h2>
+    <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      {% for section in nav_sections %}
+        {% for key in section.keys %}
+          {% with m=modules|get_item:key %}
+          <a href="{% url 'module' key %}" class="group block overflow-hidden border border-emerald-950/80 bg-black/30 shadow-term transition hover:border-emerald-800/80">
+            <div class="h-px {{ m.gradient }} opacity-90"></div>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-mono text-[13px] font-semibold text-emerald-300 group-hover:text-emerald-200">{{ m.title }}</h3>
+                  <p class="mt-1 text-[12px] leading-snug text-emerald-800">{{ m.subtitle }}</p>
+                </div>
+                <span class="shrink-0 font-mono text-emerald-800 transition group-hover:text-emerald-600">&gt;</span>
+              </div>
+            </div>
+          </a>
+          {% endwith %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

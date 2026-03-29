@@ -1,0 +1,109 @@
+{% load dict_extras %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}pulse{% endblock %} · rmm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          boxShadow: {
+            term: '0 0 0 1px rgba(34, 197, 94, 0.12), inset 0 1px 0 rgba(74, 222, 128, 0.04)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { font-feature-settings: "liga" 0; }
+    .crt-lines {
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.12) 2px,
+        rgba(0, 0, 0, 0.12) 3px
+      );
+      pointer-events: none;
+    }
+    .grid-term {
+      background-size: 32px 32px;
+      background-image:
+        linear-gradient(to right, rgba(34, 197, 94, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(34, 197, 94, 0.04) 1px, transparent 1px);
+    }
+    .noise {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-full bg-[#030806] font-mono text-sm text-emerald-100/90 antialiased">
+  <div class="noise pointer-events-none fixed inset-0 z-0"></div>
+  <div class="grid-term pointer-events-none fixed inset-0 z-0"></div>
+  <div class="crt-lines pointer-events-none fixed inset-0 z-0 opacity-30"></div>
+
+  <aside class="fixed left-0 top-0 z-40 flex h-full w-[17rem] flex-col border-r border-emerald-950/80 bg-[#020403]/95">
+    <div class="flex items-start gap-3 border-b border-emerald-950/60 px-4 py-4">
+      <div class="min-w-0 flex-1">
+        <p class="truncate text-[13px] font-semibold tracking-tight text-emerald-300">pulse</p>
+        <p class="truncate text-[11px] text-emerald-700">rmm</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-2 py-3">
+      <a href="{% url 'home' %}"
+         class="mb-4 flex items-center gap-2 border-l-2 px-2 py-2 text-[13px] transition
+                {% if nav_active == 'home' %}
+                  border-emerald-400 bg-emerald-950/40 text-emerald-200
+                {% else %}
+                  border-transparent text-emerald-600 hover:border-emerald-800 hover:bg-emerald-950/50 hover:text-emerald-400
+                {% endif %}">
+        <span class="text-emerald-700">~</span>
+        Overview
+      </a>
+
+      {% for section in nav_sections %}
+        <p class="mb-1.5 px-2 font-mono text-[10px] uppercase tracking-[0.25em] text-emerald-800 {% if not forloop.first %}mt-5{% else %}mt-1{% endif %}">{{ section.label }}</p>
+        <ul class="space-y-0.5">
+          {% for key in section.keys %}
+            {% with m=modules|get_item:key %}
+            <li>
+              <a href="{% url 'module' key %}"
+                 class="flex items-center gap-2 border-l-2 px-2 py-1.5 text-[13px] transition
+                        {% if nav_active == key %}
+                          border-emerald-400 bg-emerald-950/40 text-emerald-200
+                        {% else %}
+                          border-transparent text-emerald-600 hover:border-emerald-800 hover:bg-emerald-950/50 hover:text-emerald-400
+                        {% endif %}">
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full {{ m.gradient }} opacity-90"></span>
+                <span class="truncate">{{ m.title }}</span>
+              </a>
+            </li>
+            {% endwith %}
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </nav>
+
+    <div class="border-t border-emerald-950/60 p-3">
+      <div class="border border-emerald-950/80 bg-black/40 px-2 py-2 font-mono text-[11px] text-emerald-700 shadow-term">
+        signed in
+      </div>
+    </div>
+  </aside>
+
+  <div class="relative z-10 min-h-full pl-[17rem]">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

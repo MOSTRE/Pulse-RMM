@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ module.title|lower }}{% endblock %}
+
+{% block content %}
+<header class="border-b border-emerald-950/60 bg-black/20 px-8 py-6">
+  <nav class="mb-3 font-mono text-[11px] text-emerald-800">
+    <a href="{% url 'home' %}" class="hover:text-emerald-600">~</a>
+    <span class="mx-1 text-emerald-950">/</span>
+    <span class="text-emerald-600">{{ module.title|lower }}</span>
+  </nav>
+  <div class="h-px max-w-2xl {{ module.gradient }} shadow-lg {{ module.glow }}"></div>
+  <h1 class="mt-4 font-mono text-xl font-semibold tracking-tight text-emerald-300 sm:text-2xl">
+    <span class="text-emerald-600">#</span> {{ module.title|lower }}
+  </h1>
+  <p class="mt-2 max-w-2xl text-[13px] leading-relaxed text-emerald-700">{{ module.subtitle }}</p>
+</header>
+
+<main class="px-8 py-8">
+  <div class="border border-emerald-950/80 bg-black/30 p-8 shadow-term">
+    <div class="flex flex-col items-center justify-center py-12 text-center">
+      <div class="mb-4 flex h-12 w-12 items-center justify-center border border-emerald-900/80 bg-black/40 font-mono text-emerald-600">
+        <span class="text-lg">&gt;_</span>
+      </div>
+      <p class="max-w-md text-[12px] leading-relaxed text-emerald-800">
+        Template only. Connect this module to <code class="text-emerald-600">/api/v1/</code> and your agent.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-2">
+        <a href="{% url 'home' %}" class="border border-emerald-950/80 bg-black/40 px-3 py-1.5 font-mono text-[12px] text-emerald-600 hover:border-emerald-800 hover:text-emerald-500">
+          back
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
